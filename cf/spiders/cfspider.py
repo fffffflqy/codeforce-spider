@@ -42,7 +42,7 @@ class Cfspider(scrapy.Spider):
             self.logger.info(str(response.meta['cookiejar']))
             return [Request(
                 url='https://codeforces.com/profile/'+self.id,
-                meta={'cookiejar':response.meta['cookiejar'], 'proxy': 'http://219.234.5.128:3128'},
+                meta={'cookiejar':response.meta['cookiejar']},
                 callback=self.paser
             )]
         else:
@@ -80,14 +80,16 @@ class Cfspider(scrapy.Spider):
         firend_user = response.xpath('//div[@class="main-info "]/h1/a/text()').extract_first()
         firend_rating=response.xpath('//div[@class="info"]/ul/li[1]/span/text()').extract_first()
         firend_max_rating=response.xpath('//span[@class="smaller"]/span[2]/text()').extract_first()
+        if firend_max_rating == None:
+            firend_max_rating = '0'
         firend_Contribution=response.xpath('//div[@class="info"]/ul/li[2]/span/text()').extract_first()
         firend_firends=response.xpath('//div[@class="info"]/ul/li[3]').extract_first()
         image_urls = response.xpath('//div[@class="title-photo"]/div/div/div/img/@src').extract_first()
         image_urls='https:'+image_urls
-        print(image_urls)
+        # print(image_urls)
         re_fir=re.compile(r'\d+')
         firend_firends=re_fir.findall(firend_firends)[-1]
-        print(firend_user, firend_rating, firend_max_rating, firend_Contribution, firend_firends)
+        # print(firend_user, firend_rating, firend_max_rating, firend_Contribution, firend_firends)
         item=FriendsItem(firend_user=firend_user, firend_rating=firend_rating, firend_max_rating=firend_max_rating, firend_Contribution=firend_Contribution, firend_firends=firend_firends, image_urls=image_urls)
         yield item
 if __name__ == '__main__':
