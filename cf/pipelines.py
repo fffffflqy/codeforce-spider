@@ -26,7 +26,8 @@ class CfPipeline(object):
             line = json.dumps(dict(item))+'\n'
             self.file1.write(line.encode('utf-8'))
         else:
-
+            line = json.dumps(dict(item)) + '\n'
+            self.file1.write(line.encode('utf-8'))
             USER = str(item['firend_user'])
             RATING = int(item['firend_rating'])
             MAX_RATING = int(item['firend_max_rating'])
