@@ -52,9 +52,9 @@ IMAGES_STORE=r'D:\cf\image'
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'cf.middlewares.CfDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'cf.middlewares.CfDownloaderMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
